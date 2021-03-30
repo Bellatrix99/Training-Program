@@ -2,28 +2,33 @@ const API_KEY = 'd5ac0a6c09744938a42280a05a2f2858';
 const BASE_REQ_URL = `https://devapi.qweather.com/v7/weather/now?&key=${API_KEY}&lang=en`;
 const BASE_DAILY_REQ_URL = `https://devapi.qweather.com/v7/weather/7d?key=${API_KEY}&lang=en`
 
-/** 类型声明
+/** 获取现在天气的 icon 节点
  * @type {Element | null}
  */
 let nowWeather = document.querySelector('#nowWeather');
 
-/** @type {Array<Object>} */
+/** 城市代码的集合
+ * @type {Array<Object>}
+ */
 const LOCATION_MAPPER = {
     BeiJing: 101010100,
     ShangHai: 101020100,
     ShenZhen: 101280601,
     GuangZhou: 101280101,
 };
-/** 标记数组
+/** 时间数组 - 周
  * @type {Array<string>}
  */
 const DAY_STR_ARR = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-/** 标记数组
+/** 时间数组 - 月
  * @type {Array<string>}
  */
 const MONTH_STR_ARR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
+/** 配置化
+ * 请求状态数组
+ */
 const ERROR_MAPPER = [
     {
         status:'400',
@@ -67,8 +72,9 @@ const ERROR_MAPPER = [
     }
 ];
 
-// 配置化
-/** @type {Array<Object>} */
+/** 配置化
+ * @type {Array<Object>}
+ */
 const LEFT_PANEL_DATA_MAPPER = [
     {
         selector: '.date-dayName',
@@ -110,7 +116,9 @@ const LEFT_PANEL_DATA_MAPPER = [
 //     Snow: cloud-snow,
 //     Thunder: cloud-lighting
 
-/** @type {Array<Object>} */
+/** 对应天气数组
+ * @type {Array<Object>}
+ */
 const DAILY_WEATHER_CHANGE = [
     {
         weather: "SUNNY",
@@ -134,6 +142,10 @@ const DAILY_WEATHER_CHANGE = [
     }
 ];
 
+/**
+ * 获取切换城市按钮的节点
+ * 并设置事件监听：点击时切换城市天气信息
+ */
 const $el = document.querySelector('.location-container');
 if ($el instanceof HTMLElement) {
     $el.addEventListener('click', (evt) => {
@@ -149,7 +161,7 @@ if ($el instanceof HTMLElement) {
 }
 
 /**
- * 获取某城市的 DOM 节点
+ * 提供某城市的天气信息并且加载左侧的天气卡片，更新相关信息
  * @param city {string} - 需要获取信息的城市
  */
 function renderData(city) {
@@ -169,7 +181,7 @@ function renderData(city) {
 }
 
 /**
- * 对 fetch 做一些判断和错误捕捉
+ * fetch 接口并对 fetch 做一些判断和错误捕捉
  */
 async function request(location) {
     return fetch(`${BASE_REQ_URL}&location=${LOCATION_MAPPER[location]}`)
@@ -220,6 +232,9 @@ async function requestCurrentWeather(location) {
         });
 }
 
+/**
+ * 获取从接口中拿到的数据并进行简单处理并添加到对应 selector 中
+ */
 function renderLeftPanel(data) {
     LEFT_PANEL_DATA_MAPPER.forEach(({selector, attr, computed}) => {
         const $el = document.querySelector(selector);
@@ -230,7 +245,7 @@ function renderLeftPanel(data) {
     feather.replace();
 }
 
-/**
+/** 对近三日的天气信息进行请求数据并返回
  * @param location {typeof LOCATION_MAPPER} - 需要查询的城市
  */
 async function requestWeather(location) {
@@ -246,6 +261,9 @@ async function requestWeather(location) {
         })
 }
 
+/**
+ * 获取的天气信息
+ */
 function renderDailyData(dataArr) {
     const $list = document.querySelector('.week-list');
     $list.innerHTML = '';
@@ -258,7 +276,7 @@ function renderDailyData(dataArr) {
 }
 
 /**
- *
+ * 通过获得的天气信息设置天气卡片的内容和 icon 等
  * @param daily { {max: string, min: string} }
  * @param isActive { boolean } isActive
  * @return {HTMLLIElement}
@@ -288,8 +306,8 @@ function weatherIconChange(weatherUpper, selectElem) {
 }
 
 /**
- * 计算并获取需要的时间
- * @param dateStr {Date} - 需要计算的时间
+ * 计算并获取需要的时间（年 月 日 周
+ * @param dateStr {Date} - 需要计算的时间（年 月 日 周
  * @returns {{ year : number, month : number, date : number, day : string}}
  */
 function parseDate(dateStr) {
