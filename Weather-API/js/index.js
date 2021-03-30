@@ -149,33 +149,22 @@ if ($el instanceof HTMLElement) {
 }
 
 /**
- * 设计天气图标的变化
- * @param weatherUpper {string} - 当天天气的大写形式
- * @param selectElem {Element} - 需要变化的elem
+ * 获取某城市的 DOM 节点
+ * @param city {string} - 需要获取信息的城市
  */
-function weatherIconChange(weatherUpper, selectElem) {
-    for (let i = 0; i < DAILY_WEATHER_CHANGE.length; i++) {
-        if (weatherUpper.indexOf(DAILY_WEATHER_CHANGE[i].weather) !== -1) {
-            selectElem.setAttribute("data-feather", DAILY_WEATHER_CHANGE[i].value);
-            return;
-        } else {
-            selectElem.setAttribute("data-feather", "cloud");
+function renderData(city) {
+    requestCurrentWeather(city).then(data => {
+        renderLeftPanel(data);
+    });
+    requestWeather(city).then(data => {
+        renderDailyData(data);
+        let dailyWeather = document.querySelectorAll('.day-icon');
+        let dailyWeatherUpper = [];
+        for (let i = 0; i <= 3; i++) {
+            dailyWeatherUpper[i] = data[i].Weather3d.toUpperCase();
+            weatherIconChange(dailyWeatherUpper[i], dailyWeather[i]);
         }
-    }
-}
-
-/**
- * 计算并获取需要的时间
- * @param dateStr {Date} - 需要计算的时间
- * @returns {{ year : number, month : number, date : number, day : string}}
- */
-function parseDate(dateStr) {
-    const date = new Date(dateStr);
-    return ({
-        year: date.getFullYear(),
-        month: MONTH_STR_ARR[date.getMonth()],
-        date: date.getDate(),
-        day: DAY_STR_ARR[date.getDay()]
+        feather.replace();
     })
 }
 
@@ -197,15 +186,15 @@ async function request(location) {
         .catch(error => {
             console.log('Error is: ', error);
             alert("There may be something wrong with your network.");
-                for (let i = 0; i < ERROR_MAPPER.length; i++) {
-                    if (error.status === ERROR_MAPPER[i].status) {
-                        console.log('Error is: ', error);
-                        alert(ERROR_MAPPER[i].meg);
-                        return;
-                    }else {
-                        console.log('Error is: ', error);
-                    }
+            for (let i = 0; i < ERROR_MAPPER.length; i++) {
+                if (error.status === ERROR_MAPPER[i].status) {
+                    console.log('Error is: ', error);
+                    alert(ERROR_MAPPER[i].meg);
+                    return;
+                }else {
+                    console.log('Error is: ', error);
                 }
+            }
         });
 }
 
@@ -257,6 +246,17 @@ async function requestWeather(location) {
         })
 }
 
+function renderDailyData(dataArr) {
+    const $list = document.querySelector('.week-list');
+    $list.innerHTML = '';
+    if ($list instanceof HTMLUListElement) {
+        dataArr.forEach((data, index) => {
+            const $el = createDailyItem(data, !index);
+            $list.appendChild($el);
+        });
+    }
+}
+
 /**
  *
  * @param daily { {max: string, min: string} }
@@ -270,34 +270,35 @@ function createDailyItem(daily, isActive) {
     return $li;
 }
 
-function renderDailyData(dataArr) {
-    const $list = document.querySelector('.week-list');
-    $list.innerHTML = '';
-    if ($list instanceof HTMLUListElement) {
-        dataArr.forEach((data, index) => {
-            const $el = createDailyItem(data, !index);
-            $list.appendChild($el);
-        });
+
+/**
+ * 设计天气图标的变化
+ * @param weatherUpper {string} - 当天天气的大写形式
+ * @param selectElem {Element} - 需要变化的elem
+ */
+function weatherIconChange(weatherUpper, selectElem) {
+    for (let i = 0; i < DAILY_WEATHER_CHANGE.length; i++) {
+        if (weatherUpper.indexOf(DAILY_WEATHER_CHANGE[i].weather) !== -1) {
+            selectElem.setAttribute("data-feather", DAILY_WEATHER_CHANGE[i].value);
+            return;
+        } else {
+            selectElem.setAttribute("data-feather", "cloud");
+        }
     }
 }
 
 /**
- * 获取某城市的 DOM 节点
- * @param city {string} - 需要获取信息的城市
+ * 计算并获取需要的时间
+ * @param dateStr {Date} - 需要计算的时间
+ * @returns {{ year : number, month : number, date : number, day : string}}
  */
-function renderData(city) {
-    requestCurrentWeather(city).then(data => {
-        renderLeftPanel(data);
-    });
-    requestWeather(city).then(data => {
-        renderDailyData(data);
-        let dailyWeather = document.querySelectorAll('.day-icon');
-        let dailyWeatherUpper = [];
-        for (let i = 0; i <= 3; i++) {
-            dailyWeatherUpper[i] = data[i].Weather3d.toUpperCase();
-            weatherIconChange(dailyWeatherUpper[i], dailyWeather[i]);
-        }
-        feather.replace();
+function parseDate(dateStr) {
+    const date = new Date(dateStr);
+    return ({
+        year: date.getFullYear(),
+        month: MONTH_STR_ARR[date.getMonth()],
+        date: date.getDate(),
+        day: DAY_STR_ARR[date.getDay()]
     })
 }
 
