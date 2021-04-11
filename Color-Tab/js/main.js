@@ -17,9 +17,11 @@ $colorButton.addEventListener("click", (event) => {
     if (!($target instanceof HTMLElement)) {
         return;
     }
-    // const $realButton = $target.closest('li');
-    // if ($target)
+
     // 先将所有的颜色选中（active-color）去除
+    if ($target.tagName !== 'LI') {
+        return;
+    }
     for (let colorButtonLiElement of $colorButtonLi) {
         colorButtonLiElement.classList.remove("active-color");
     }
