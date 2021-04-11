@@ -181,9 +181,11 @@ function renderData(city) {
 }
 
 /**
- * fetch 接口并对 fetch 做一些判断和错误捕捉
+ * fetch 接口信息并对 fetch 做一些判断和错误捕捉
+ * @param location {typeof LOCATION_MAPPER}
+ * @return {Promise<*>}
  */
-async function request(location) {
+async function requestCurrent(location) {
     return fetch(`${BASE_REQ_URL}&location=${LOCATION_MAPPER[location]}`)
         .then(response => {
             if (response.ok) {
@@ -216,7 +218,7 @@ async function request(location) {
  *
  */
 async function requestCurrentWeather(location) {
-    return request(location)
+    return requestCurrent(location)
         .then(weatherData => {
             /**
              * @param updateTime {Date}
@@ -245,12 +247,45 @@ function renderLeftPanel(data) {
     feather.replace();
 }
 
+
+
+/**
+ * fetch 近三日的天气信息并且做出一定的错误捕捉
+ * @param location {typeof LOCATION_MAPPER}
+ * @return {Promise<*>}
+ */
+async function requestDaily(location) {
+    return fetch(`${BASE_DAILY_REQ_URL}&location=${LOCATION_MAPPER[location]}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject({
+                    status: response.status,
+                    statusText: response.statusText
+                });
+            }
+        })
+        .catch(error => {
+            console.log('Error is: ', error);
+            alert("There may be something wrong with your network.");
+            for (let i = 0; i < ERROR_MAPPER.length; i++) {
+                if (error.status === ERROR_MAPPER[i].status) {
+                    console.log('Error is: ', error);
+                    alert(ERROR_MAPPER[i].meg);
+                    return;
+                }else {
+                    console.log('Error is: ', error);
+                }
+            }
+        });
+}
+
 /** 对近三日的天气信息进行请求数据并返回
  * @param location {typeof LOCATION_MAPPER} - 需要查询的城市
  */
 async function requestWeather(location) {
-    return fetch(`${BASE_DAILY_REQ_URL}&location=${LOCATION_MAPPER[location]}`)
-        .then((res) => res.json())
+    return requestDaily(location)
         .then(dailyData => {
             return dailyData.daily.slice(0, 4).map(d => ({
                 ...parseDate(d.fxDate),
