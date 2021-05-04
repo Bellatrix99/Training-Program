@@ -91,9 +91,9 @@ window.addEventListener('scroll', () => {
     }
 
     // 设置顶部和底部的视差动画
-    // $headerElem.style.transform = "translateY:+(scrollPos / 2) + 'px'";
+    // $headerElem.style.transform = "translateY:" + (scrollPos / 2) + "px";
     // 设置顶部的人像有一个视差移动, 使得人像移动距离是整体滚动距离的一半
-    $('#header-ele').css('transform', 'translateY( ' + (scrollPos / 2) + 'px )');
+    $headerElem.setAttribute('style', `transform:translateY(` + scrollPos / 2 + `px)`);
     // 设置底部的图片有一个视差移动, 使得图片向上移动距离为 |滚动距离的一半|
     $profiles.style.backgroundPositionY = -(scrollPos / 2) + 'px';
 })
