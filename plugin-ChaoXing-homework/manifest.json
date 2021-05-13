@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "ChaoXing作业数据",
+  "version": "1.0.1",
+  "description": "这是用于 ChaoXing 作业数据下载的插件",
+  "icons": {
+    "16": "images/Download.png",
+    "32": "images/Download.png",
+    "48": "images/Download.png",
+    "128": "images/Download.png"
+  },
+  "browser_action": {
+    "default_title": "ChaoXing"
+  },
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+  "permissions": [
+    "https://mooc1-1.chaoxing.com/*",
+    "tabs"
+  ]
+}
