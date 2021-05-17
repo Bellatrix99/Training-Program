@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "划译工具-百度翻译",
+    "description": "划译工具-百度翻译",
+    "version": "1.0.0",
+    "icons": {
+        "16": "images/translater.png",
+        "32": "images/translater.png",
+        "48": "images/translater.png",
+        "128": "images/translater.png"
+    },
+    "browser_action": {
+        "default_icon": "images/translater.png",
+        "default_title": "划译工具-百度翻译"
+    },
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "permissions": [
+        "contextMenus",
+        "tabs"
+    ]
+}

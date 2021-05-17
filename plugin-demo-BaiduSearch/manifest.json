@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "Baidu 搜索",
+    "description": "使用 Baidu 搜索",
+    "version": "1.0.0",
+    "icons": {
+        "16": "images/search.png",
+        "32": "images/search.png",
+        "48": "images/search.png",
+        "128": "images/search.png"
+    },
+    "browser_action": {
+        "default_icon": "images/search.png",
+        "default_title": "使用 Baidu 搜索"
+    },
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "permissions": [
+        "contextMenus",
+        "tabs"
+    ]
+}
