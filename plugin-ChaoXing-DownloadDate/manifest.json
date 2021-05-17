@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "ChaoXing作业数据",
+  "name": "ChaoXing 数据下载",
   "version": "1.0.1",
-  "description": "这是用于 ChaoXing 作业数据下载的插件",
+  "description": "这是用于 ChaoXing 数据下载的插件",
   "icons": {
     "16": "images/Download.png",
     "32": "images/Download.png",
