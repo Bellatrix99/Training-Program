@@ -36,7 +36,7 @@
 
     ![导入扩展程序](https://i.loli.net/2021/05/17/sZKogqFeLvyJXjm.png)
 
-    ![选择对应文件](https://i.loli.net/2021/05/17/PupYwrNKBCTJGeo.png)
+    ![选择对应文件](https://i.loli.net/2021/06/23/YiDSz9gC7b1If5s.png)
 
 5. 大功告成(举例)
 
