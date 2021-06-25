@@ -46,9 +46,6 @@ window.addEventListener('scroll', () => {
         let targetPos = $targetElem.offsetTop - 50;
         // 得到当前元素的 offsetHeight 偏移量
         let targetHeight = $targetElem.offsetHeight;
-        // console.log(targetPos);
-        // console.log(scrollPos);
-        // console.log(targetPos + targetHeight);
         // 如果这个偏移量小于当前窗口的 scrollY, 并且当前元素最下方超过了 scrollY
         if (targetPos <= scrollPos + windowHeight / 2 && (targetPos + targetHeight) > scrollPos + windowHeight / 2) {
             // 则给当前元素增加一个 active 类

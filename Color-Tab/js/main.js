@@ -6,6 +6,7 @@ const $contentLis = document.querySelectorAll(".tab__content > li");
 const $colorButton = document.querySelector(".colors");
 const $colorButtonLi = document.querySelectorAll(".colors > li");
 const $colorItems = document.querySelectorAll(".bg-color");
+const $colorText = document.querySelector('.text-color');
 
 // 先将第一个 tab 显示
 $tabWrapper.children[0].style.display = "list-item";
@@ -35,6 +36,8 @@ $colorButton.addEventListener("click", (event) => {
     for (let colorItem of $colorItems) {
         colorItem.style.backgroundColor = newColor;
     }
+
+    $colorText.style.color = newColor;
 })
 
 
