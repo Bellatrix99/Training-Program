@@ -1,0 +1,111 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#captcha {
+    /*设置几个 CSS 变量方便多次使用*/
+    --width: 400px;
+    --height: 260px;
+    --puzzle-width: 80px;
+    --puzzle-height: 80px;
+    --moved: 0px;
+
+    display: block;
+    width: var(--width);
+    height: var(--height);
+    border-radius: 4px;
+    background-image: url(https://images.unsplash.com/photo-1624755229276-93688489df89?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=60);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+}
+
+#captcha::before, #captcha::after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: inherit;
+    height: inherit;
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+
+    /*设置图片在上右下左四个方向的缩小值作为遮罩*/
+    clip-path: inset(
+            calc((var(--height) - var(--puzzle-height)) / 2) var(--puzzle-width) calc((var(--height) - var(--puzzle-height)) / 2) calc(var(--width) - var(--puzzle-width) * 2)
+    );
+
+    -webkit-clip-path: inset(
+            calc((var(--height) - var(--puzzle-height)) / 2) var(--puzzle-width) calc((var(--height) - var(--puzzle-height)) / 2) calc(var(--width) - var(--puzzle-width) * 2)
+    )
+}
+
+#captcha::after {
+    transform: translateX(
+        /*clamp 函数设置变化的最小值，当前值和最大值*/ clamp(
+                    calc(var(--width) * -1),
+                    calc((var(--width) * -1) + var(--moved)),
+                    calc(var(--puzzle-width))
+            )
+    );
+    transition: .25s all ease-in-out;
+}
+
+#captcha:active::after {
+    transition: none;
+}
+
+#captcha::before {
+    background-color: rgba(0, 0, 0, .6);
+    /*设置背景的融合模式为相乘*/
+    background-blend-mode: multiply;
+}
+
+#captcha:active #handle span {
+    transition: none;
+}
+
+/*验证码验证成功后去除方块和滑动条*/
+#captcha.passed::before,
+#captcha.passed::after,
+#captcha.passed #handle {
+    opacity: 0;
+}
+
+#handle {
+    width: calc(var(--width) + var(--puzzle-width) * 2);
+    height: 30px;
+    border-radius: 18px;
+    background-color: #eee;
+    position: absolute;
+    bottom: -50px;
+    left: calc(var(--puzzle-width) * 2 * -1);
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, .2);
+    border: 3px solid #ccc;
+}
+
+#handle span {
+    display: block;
+    width: var(--puzzle-width);
+    height: inherit;
+    border-radius: inherit;
+    background-color: #fff;
+    /*内外都设置阴影让效果更加立体*/
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .25), 0 2px 4px rgba(0, 0, 0, .3);
+    position: absolute;
+    cursor: move;
+    transform: translateX(
+        /*clamp 函数设置变化的最小值，当前值和最大值*/
+            clamp(
+                    0px,
+                    var(--moved),
+                    calc(var(--width) + var(--puzzle-width))
+            )
+    );
+
+    transition: .25s all ease-in-out;
+}
