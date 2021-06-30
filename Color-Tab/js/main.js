@@ -7,6 +7,7 @@ const $colorButton = document.querySelector(".colors");
 const $colorButtonLi = document.querySelectorAll(".colors > li");
 const $colorItems = document.querySelectorAll(".bg-color");
 const $colorText = document.querySelector('.text-color');
+const $colorLinks = document.querySelectorAll('.links a');
 
 // 先将第一个 tab 显示
 $tabWrapper.children[0].style.display = "list-item";
@@ -38,6 +39,9 @@ $colorButton.addEventListener("click", (event) => {
     }
 
     $colorText.style.color = newColor;
+    for (const $colorLink of $colorLinks) {
+        $colorLink.style.color = newColor;
+    }
 })
 
 
@@ -76,4 +80,3 @@ function getActiveLi() {
         }
     }
 }
-

@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <title>Color-Tabs</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/CarouselText.css">
+    <link rel="stylesheet" href="css/macOSDock.css">
     <link rel="stylesheet" href="css/fontStyle.css">
 
 </head>
 <body>
-<nav class="bg-color">Color tabs</nav>
+<nav class="bg-color">Tiny Demo</nav>
 
 <section class="wrapper clearfix">
     <ul class="tabs">
         <li class="active">Colors</li>
-        <li>Favorite Picture</li>
-        <li>About</li>
+        <li>Carousel Text</li>
+        <li>Vector</li>
+        <li>Else</li>
     </ul>
 
     <ul class="tab__content">
@@ -33,24 +36,67 @@
         </li>
         <li>
             <div class="content__wrapper">
-                <h2 class="text-color">Frog</h2>
-
-                <img src="https://i.loli.net/2021/04/10/dspoykWRLqKa6Uc.jpg">
+                <h2 id="CarouselText">
+                    Turn your living room into
+                    <div class="mask">
+                        <span data-show>a theater.</span>
+                        <span>a gym.</span>
+                        <span>a concert hall.</span>
+                        <span>an arcade.</span>
+                    </div>
+                </h2>
             </div>
         </li>
         <li>
             <div class="content__wrapper">
-                <h2 class="text-color">About</h2>
-
-                <p>Created by <a class="text-color" href="https://github.com/Bellatrix99" target="_blank">Bellatrix</a></p>
+                <h1 id="Vector">
+                    Choose me
+                    <svg width="209" height="41"
+                         viewBox="0 0 209 41"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 35C58.3333 35.8333 145.5 35 203 6.5"
+                              stroke="#43E229"
+                              stroke-width="11"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              id="tick"/>
+                    </svg>
+                </h1>
+            </div>
+        </li>
+        <li>
+            <div class="content__wrapper">
+                <h1>其他 Demo 页面</h1>
+                <div class="links">
+                    <a href="https://bellatrix99.github.io/Training-Program/CAPTCHA" target="_blank">滑动验证码</a>
+                    <a href="https://bellatrix99.github.io/Training-Program/Parallax-Scroll" target="_blank">视差滚动</a>
+                    <a href="https://bellatrix99.github.io/Training-Program/TransparentScroll" target="_blank">HomePod透视拆解</a>
+                </div>
             </div>
         </li>
     </ul>
 
 </section>
+<div class="glass_outer">
+    <div class="glass">
+        <ul class="dock">
+            <li>😀</li>
+            <li>😁</li>
+            <li>😂</li>
+            <li>🤣</li>
+            <li>😃</li>
+            <li>😄</li>
+            <li>😅</li>
+        </ul>
+    </div>
+</div>
+
 
 <footer>By Bellatrix</footer>
-<script  src="js/main.js"></script>
+<script src="js/main.js"></script>
+<script src="js/CarouselText.js"></script>
+<script src="js/macOSDock.js"></script>
 
 </body>
 </html>

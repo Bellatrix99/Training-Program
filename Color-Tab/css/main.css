@@ -1,219 +1,270 @@
+/*导入 Google fonts 网页字体*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 /* 解决滚动条出现挤压页面宽度开始 */
 html {
-  overflow-y: scroll;
-  /*兼容ie8，不支持: root, vw*/
+    overflow-y: scroll;
+    /*兼容ie8，不支持: root, vw*/
 }
 
 :root {
-  overflow-y: auto;
-  overflow-x: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    --offset: 6px;
 }
 
 :root body {
-  position: absolute;
+    position: absolute;
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
-  color: #50555a;
-  padding: 100px 40px;
-  width: 100vw;
-  /*overflow: hidden;*/
+    font-family: "Open Sans", sans-serif;
+    color: #50555a;
+    padding: 100px 40px;
+    width: 100vw;
 }
 
 nav {
-  z-index: 9;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  padding: 20px 0;
-  text-align: center;
+    z-index: 9;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 20px 0;
+    text-align: center;
 }
 
 .bg-color {
-  background-color: #46a1de;
-  transition-duration: 0.5s;
+    background-color: #46a1de;
+    transition-duration: 0.5s;
 }
 
 .text-color {
-  color: #46a1de;
-  transition-duration: 0.5s;
+    color: #46a1de;
+    transition-duration: 0.5s;
 }
 
 footer {
-  padding: 40px 0;
-  text-align: center;
-  opacity: 0.33;
-  color: white;
+    position: fixed;
+    text-align: center;
+    opacity: 0.33;
+    color: white;
+    bottom: 0;
+    /*left: 0;*/
+    right: 0;
 }
 
 .wrapper {
-  position: relative;
-  min-width: 600px;
-  max-width: 900px;
-  margin: 0 auto;
+    position: relative;
+    min-width: 600px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .tabs {
-  /* position: absolute; */
-  display: table;
-  table-layout: fixed;
-  width: 25%;
-  float: left;
-  -webkit-transform: translateX(5px);
-  transform: translateX(5px);
-  /* min-height: 100%; */
+    display: table;
+    table-layout: fixed;
+    width: 25%;
+    float: left;
+    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
 }
 
 .tabs > li {
-  transition-duration: 0.25s;
-  /*display: table-cell;*/
-  list-style: none;
-  text-align: center;
-  padding: 20px 20px 25px 20px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  color: white;
+    transition-duration: 0.25s;
+    list-style: none;
+    text-align: center;
+    padding: 17px 20px 22px 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    color: white;
 }
 
 .tabs > li:before {
-  z-index: -1;
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.3);
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-  transition-duration: 0.25s;
-  border-radius: 5px 0 0 5px;
+    z-index: -1;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    transition-duration: 0.25s;
+    border-radius: 5px 0 0 5px;
 }
 
 .tabs > li:hover:before {
-  -webkit-transform: translateX(90%);
-  transform: translateX(90%);
+    -webkit-transform: translateX(90%);
+    transform: translateX(90%);
 }
 
 .tabs > li.active {
-  color: #50555a;
+    color: #50555a;
 }
 
 .tabs > li.active:before {
-  transition-duration: 0.5s;
-  background-color: white;
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
+    transition-duration: 0.5s;
+    background-color: white;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
 }
 
 .tab__content {
-  /* transition-duration: 0.5s; */
-  background-color: white;
-  position: relative;
-  width: 75%;
-  float: right;
-  border-radius: 5px;
+    background-color: white;
+    position: relative;
+    width: 75%;
+    float: right;
+    border-radius: 5px;
 }
 
 .clearfix:after { /*伪元素是行内元素 正常浏览器清除浮动方法*/
-  content: "";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 
 .tab__content > li {
-  /*min-height: 100%;*/
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
-  list-style: none;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    list-style: none;
 }
 
 .tab__content > li .content__wrapper {
-  text-align: center;
-  border-radius: 5px;
-  width: 100%;
-  padding: 70px 65px 65px 65px;
-  background-color: white;
+    text-align: center;
+    border-radius: 5px;
+    width: 100%;
+    padding: 70px 65px 65px 65px;
+    background-color: white;
 }
 
 .content__wrapper h2 {
-  width: 100%;
-  text-align: center;
-  padding-bottom: 20px;
-  font-weight: 300;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: 300;
 }
 
 .content__wrapper img {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    display: block;
 }
 
 .colors {
-  text-align: center;
-  padding-top: 20px;
+    text-align: center;
+    padding-top: 20px;
 }
 
 .colors > li {
-  list-style: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.1);
-  display: inline-block;
-  margin: 0 10px;
-  cursor: pointer;
-  transition-duration: 0.2s;
-  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .colors > li:hover {
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
-  border-bottom: 10px solid rgba(0, 0, 0, 0.15);
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    border-bottom: 10px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 }
 
 .colors > li.active-color {
-  -webkit-transform: scale(1.2) translateY(-10px);
-  transform: scale(1.2) translateY(-10px);
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-  border-bottom: 20px solid rgba(0, 0, 0, 0.15);
+    -webkit-transform: scale(1.2) translateY(-10px);
+    transform: scale(1.2) translateY(-10px);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 20px solid rgba(0, 0, 0, 0.15);
 }
 
 .colors > li:nth-child(1) {
-  background-color: #2ecc71;
+    background-color: #2ecc71;
 }
 
 .colors > li:nth-child(2) {
-  background-color: #D64A4B;
+    background-color: #D64A4B;
 }
 
 .colors > li:nth-child(3) {
-  background-color: #8e44ad;
+    background-color: #8e44ad;
 }
 
 .colors > li:nth-child(4) {
-  background-color: #46a1de;
+    background-color: #46a1de;
 }
 
 .colors > li:nth-child(5) {
-  background-color: #bdc3c7;
+    background-color: #bdc3c7;
 }
+
+#Vector {
+    left: 30%;
+    font-size: 60px;
+    width: 220px;
+    line-height: 1em;
+    letter-spacing: -0.03em;
+    position: relative;
+    text-align: left;
+}
+
+h1 svg {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    /*z-index: -1;*/
+}
+
+#tick {
+    /*控制用来描边的点划线的图案范式(分成虚线之后每段的长度)*/
+    stroke-dasharray: 210px;
+    /*指定了dash模式到路径开始的偏移值(向左)*/
+    stroke-dashoffset: 210px;
+    animation: 3s tick ease-in-out infinite;
+}
+
+@keyframes tick {
+    0%, 50% {
+        stroke-dashoffset: 210px;
+    }
+    50%, 100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 76px;
+}
+
+.links a {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+    text-decoration:none;
+    color: #46a1de
+}
+
