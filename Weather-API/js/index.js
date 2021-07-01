@@ -32,43 +32,43 @@ const MONTH_STR_ARR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', '
 const ERROR_MAPPER = [
     {
         status:'400',
-        meg : 'Bad Request',
+        msg : 'Bad Request',
     },
     {
         status:'401',
-        meg : 'Unauthorized',
+        msg : 'Unauthorized',
     },
     {
         status:'402',
-        meg : 'Payment Required',
+        msg : 'Payment Required',
     },
     {
         status:'403',
-        meg : 'Forbidden',
+        msg : 'Forbidden',
     },
     {
         status:'404',
-        meg : 'Not Found',
+        msg : 'Not Found',
     },
     {
         status:'405',
-        meg : 'Method Not Allowed',
+        msg : 'Method Not Allowed',
     },
     {
         status:'406',
-        meg : 'Not Acceptable',
+        msg : 'Not Acceptable',
     },
     {
         status:'407',
-        meg : 'Proxy Authentication Required',
+        msg : 'Proxy Authentication Required',
     },
     {
         status:'408',
-        meg : 'Request Timeout',
+        msg : 'Request Timeout',
     },
     {
         status:'409',
-        meg : 'Conflict',
+        msg : 'Conflict',
     }
 ];
 
@@ -147,6 +147,8 @@ const DAILY_WEATHER_CHANGE = [
  * 并设置事件监听：点击时切换城市天气信息
  */
 const $el = document.querySelector('.location-container');
+const $button = document.querySelectorAll('.location-button');
+
 if ($el instanceof HTMLElement) {
     $el.addEventListener('click', (evt) => {
         const $target = evt.target;
@@ -154,6 +156,13 @@ if ($el instanceof HTMLElement) {
             return;
         }
         const $realButton = $target.closest('.location-button');
+        if ($target.tagName !== 'BUTTON' && $target.tagName !== 'I' && $target.tagName !== 'SPAN') {
+            return;
+        }
+        for (const $buttonElement of $button) {
+            $buttonElement.style.backgroundImage = 'var(--gradient)';
+        }
+        $realButton.style.backgroundImage = 'var(--clicked)';
         const $spanEl = $realButton.querySelector('.city-name');
         const city = $spanEl.textContent;
         renderData(city);
@@ -203,7 +212,7 @@ async function requestCurrent(location) {
             for (let i = 0; i < ERROR_MAPPER.length; i++) {
                 if (error.status === ERROR_MAPPER[i].status) {
                     console.log('Error is: ', error);
-                    alert(ERROR_MAPPER[i].meg);
+                    alert(ERROR_MAPPER[i].msg);
                     return;
                 }else {
                     console.log('Error is: ', error);
@@ -272,7 +281,7 @@ async function requestDaily(location) {
             for (let i = 0; i < ERROR_MAPPER.length; i++) {
                 if (error.status === ERROR_MAPPER[i].status) {
                     console.log('Error is: ', error);
-                    alert(ERROR_MAPPER[i].meg);
+                    alert(ERROR_MAPPER[i].msg);
                     return;
                 }else {
                     console.log('Error is: ', error);
